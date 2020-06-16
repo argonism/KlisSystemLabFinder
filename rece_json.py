@@ -11,7 +11,6 @@ def rec_1():
     rec_data_2=request.json["questions"]
     teachers=rec_data_1
     #print(rec_data_2)
-    print(rec_data_1)
     #print(request.method)
     #ques=rec_data_1[1]
     #-------------------計算part1
@@ -22,7 +21,7 @@ def rec_1():
         sel = "select distinct name from teacher where id=?"
         data=tea
 
-        c.execute(sel,str(tea))
+        c.execute(sel,(str(tea),))
         for row in c.fetchall():
             teachers_list.append(row)
 
@@ -32,9 +31,9 @@ def rec_1():
     teacher_set={}
     def cal(arr1,arr2):
         sum_arr=[]
-        sum_arr.append((arr1[0]-arr2[0])**2)
-        sum_arr.append((arr1[1]-arr2[1])**2)
-        sum_arr.append((arr1[2]-arr2[2])**2)
+        sum_arr.append((int(arr1[0])-arr2[0])**2)
+        sum_arr.append((int(arr1[1])-arr2[1])**2)
+        sum_arr.append((int(arr1[2])-arr2[2])**2)
         q_sum=sum(sum_arr)
 
         return q_sum
@@ -77,7 +76,6 @@ def rec_1():
     header = {"Content-Type": "application/json"}
     res_4 = HTTPResponse(status=200, body=output_json, headers=header)
     result_json=json.dumps(output_json,ensure_ascii=False)
-    print(result_json)
     #output_1 = {"message": "OK"}
     #------out(dict)----------------
     #header = {"Content-Type": "application/json"}
@@ -129,7 +127,7 @@ def get_1():
     category_json=json.dumps(category_list,ensure_ascii=False)
     return {category_json}
 # テスト用のサーバをlocalhost:8080で起動する
-run(host="localhost", port=8080, debug=True, reloader=True)
+run(host="0.0.0.0", port=8080, debug=True, reloader=True)
 
 
 
